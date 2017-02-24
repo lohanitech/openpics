@@ -1,0 +1,51 @@
+.photos {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding-right: 330px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 120px;
+  margin-top: 20px;
+  &.full-width{
+    padding-right: 40px;
+  }
+  .pics-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  .pics {
+    column-count: 4;
+    .pic {
+      min-height: 150px;
+      position: relative;
+      break-inside: avoid;
+      .pic-footer {
+        display: none;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        padding: 10px;
+        font-size: 11px;
+        line-height: 14px;
+        width: 100%;
+        background: rgba(0, 0, 0, .5);
+        color: #f8f8f8;
+      }
+      .pic-footer a:hover {
+        color: #f8f8f8;
+      }
+      &:hover {
+        .pic-footer {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+app-toolbar {
+  margin-right: 20px;
+  top: 20px;
+}

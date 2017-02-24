@@ -1,0 +1,17 @@
+<div class="level-left">
+  <a class="level-item button is-info" (click)="toggleSidebar()">
+    <span class="icon">
+      <i class="fa fa-bars"></i>
+    </span> 
+  </a>
+</div>
+<div class="level-right">
+  <span class="level-item">
+      <p class="control has-addons">
+        <input autofocus class="input" type="text" [(ngModel)]="query" placeholder="search" (change)="searchClicked($event)">
+        <a class="button is-info" (click)="searchClicked($event)">
+          Search
+        </a>
+      </p>
+  </span>
+</div>

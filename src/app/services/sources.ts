@@ -1,0 +1,21 @@
+export const SOURCES={
+	'unsplash':{name: 'Unsplash',url:'https://unsplash.com', license:'https://unsplash.com/license'},
+	'pixabay':{name: 'Pixabay', url: 'https://pixabay.com', license: 'https://pixabay.com/en/service/terms/'},
+	'freerangestock':{name: 'Free Range Stock', url:'https://freerangestock.com/', license: 'https://freerangestock.com/licensing.php'},
+	'openclipart':{name: 'Open Clipart', url: 'https://openclipart.org', license: 'https://openclipart.org/share'},
+	'startupstockphotos':{name: 'Startup Stock Photos',url:'http://startupstockphotos.com/', license: 'http://startupstockphotos.com/terms-of-use'},
+	'amantri':{name: 'Jaymantri',url:'http://jaymantri.com',license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'newoldstockphotos':{name: 'New Old Stock',url:'http://nos.twnsnd.co', license: 'http://nos.twnsnd.co/rights-and-usage'},
+	'moveast':{name: 'Moveast',url:'http://moveast.me',license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'fancycrave':{name: 'Fancycrave',url:'https://fancycrave.tumblr.com', license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'realisticshots':{name: 'Realistic Shots',url: 'http://realisticshots.com',license: 'http://realisticshots.com/terms'},
+	'littlevisuals-blog':{name: 'Little Visuals',url:'http://littlevisuals.co', license:'https://littlevisuals.co'},
+	'snapwiresnaps':{name: 'Snapwire Snaps',url:'https://snapwiresnaps.tumblr.com',license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'crowthestone':{name: 'Crow The Stone',url:'https://crowthestone.tumblr.com',license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'travelcoffeebook':{name: 'Travel Coffee Book',url:'http://travelcoffeebook.com',license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'epicantus':{name: 'Epicantus',url:'https://epicantus.tumblr.com', license:'https://creativecommons.org/publicdomain/zero/1.0/'},
+	'martinvorel':{name: 'Martin Vorel',url:'https://martinvorel.tumblr.com', license: 'http://libreshot.com/license-information/'},
+	'semi-recta':{name: 'Semi Recta',url:'https://semi-recta.tumblr.com', license:'https://semi-recta.tumblr.com'},
+	'lookingglassfreephotos':{name: 'Looking Glass Free Photos',url:'https://lookingglassfreephotos.tumblr.com', license: 'https://lookingglassfreephotos.tumblr.com/termsofuse'},
+	'getrefe':{name: 'Getrefe',url:'https://getrefe.tumblr.com', license:'https://creativecommons.org/publicdomain/zero/1.0/'}
+}

@@ -1,0 +1,28 @@
+.image {
+  padding-top: 20px;
+  max-width: 100%;
+  margin-top: 40px;
+  height: 100%;
+  margin-right: 20px;
+  img {
+    margin: 0 auto;
+    max-height: 600px;
+    height: 600px;
+    width: auto;
+  }
+}
+
+.statusbar {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  padding-right: 330px;
+  &.full-width{
+    padding-right: 40px;
+  }
+}
+
+.toolbar {
+  top: 20px;
+  margin-right: 20px;
+}

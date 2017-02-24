@@ -1,0 +1,19 @@
+{
+  "name"    : "openpics",
+  "productName": "Open Pics",
+  "description":"Search and download free stock photos from multiple sources for your creative projects",
+  "version" : "0.1.0",
+  "author":{
+    "name":"Damodar Lohani",
+    "email":"dlohani48@gmail.com",
+    "url": "https://lohanitech.com/members/damodar-lohani"
+  },
+  "homepage": "http://openpics.xyz",
+  "main"    : "electron/electron.js",
+  "build":{
+    "appId":"com.lohanitech.openpics",
+    "electronVersion":"1.6.1",
+    "output":"../dist",
+    "compression":"maximum"
+  }
+}

@@ -1,0 +1,77 @@
+<div *ngIf="pic">
+  <div class="toolbar notification">
+    <!-- Main container -->
+    <nav class="level">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <a class="button is-info" (click)="toggleSidebar()">
+            <span class="icon">
+              <i class="fa fa-bars"></i>
+            </span>
+          </a>
+        </div>
+        <div class="level-item">
+          <a class="button" routerLink="">
+            <span class="icon">
+              <i class="fa fa-angle-left"></i>
+            </span>
+          </a>
+        </div>
+        <div class="level-item">
+          Add to Collection
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="level-right">
+        <div *ngIf="progress !== -1"  class="level-item">
+          <progress style="width: 100px" [value]="progress" class="progress is-primary" max="100">Downloading</progress>
+        </div>
+        <div class="level-item"><a target="_blank" class="button is-primary {{isLoading}}" [href]="pic.fullUrl" download>
+          <span class="icon">
+            <i class="fa fa-download"></i>
+          </span>
+          </a></div>
+        <div *ngIf="pic.source.name !='Pixabay'"  class="level-item">
+          <a *ngIf="!isFavourite()"  class="button" (click)="addToFavourite()">
+            <span class="icon">
+              <i class="fa fa-heart"></i>
+            </span>
+          </a>
+          <a *ngIf="isFavourite()"  class="button is-danger" (click)="removeFromFavourite()">
+            <span class="icon">
+              <i class="fa fa-heart"></i>
+            </span>
+          </a>
+          </div>
+      </div>
+    </nav>
+  </div>
+  <div class="pics-container">
+    <div class="image">
+      <img class="box" [src]="pic.thumbnailUrl" />
+    </div>
+  </div>
+  <!--.statusbar-->
+  <div class="statusbar {{fullWidth}}">
+    <nav class="level notification">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <p>
+            By <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
+          </p>
+        </div>
+      </div>
+      <!-- Right side -->
+      <div class="level-right">
+        <div class="level-item">
+          <a [href]="pic.licenseId" [title]="pic.licenseId" (click)="openExternal($event)">View License</a>
+        </div>
+        <div class="level-item"><a [href]="pic.foundAt" [title]="pic.foundAt" (click)="openExternal($event)">Original Post</a></div>
+        <div class="level-item">Source: <a [href]="pic.source.url" [title]="pic.source.url" (click)="openExternal($event)">{{pic.source.name}}</a></div>
+      </div>
+    </nav>
+  </div>
+  <!--/.statusbar-->
+</div>

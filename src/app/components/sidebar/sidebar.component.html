@@ -1,0 +1,87 @@
+  <div class="sidebar-head box">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <img src="assets/logo.png" width="150" />
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <a (click)="toggleSettings()" class="button is-primary">
+            <span class="icon">
+              <i class="fa fa-gears"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-container">
+    <div class="box sidebar-box">
+      <div class="sidebar-sources">
+        <aside class="menu">
+          <p class="menu-label">Albums</p>
+          <ul class="menu-list">
+            <li *ngFor="let collection of collections.collections"><a (click)="selectCollection(collection)">{{collection}}</a></li> 
+          </ul>
+          <p class="menu-label">
+            Sources
+          </p>
+          <ul class="menu-list">
+            <li *ngFor="let source of sources"><a>{{source.name}}</a></li>
+          </ul>
+        </aside>
+      </div>
+      <div class="google-ads" style="max-height: 250px">
+        <p class="title">Distributed By</p>
+        <a (click)="openExternal($event, 'https://lohanitech.com')">
+          <img href="http://openpics.xyz" src="assets/lohanitech.png" /></a>
+        <p>Made with <i class="fa fa-heart"></i> by <strong> <a href="https://lohanitech.com" (click)="openExternal($event)">Lohanitech.com</a></strong> | <strong><a href="https://lohanitech.com/members/damodar-lohani" (click)="openExternal($event)">Damodar Lohani</a></strong></p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal {{isActive}}">
+    <div class="modal-background" (click)="toggleSettings()"></div>
+    <div class="modal-content">
+      <div class="box">
+        
+        <article class="media">
+          <div class="media-left">
+            <figure class="">
+              <a (click)="openExternal($event, 'https://openpics.xyz')">
+              <img src="assets/logo.png" width="150" />
+              </a>
+            </figure>
+            <figure>
+              <a (click)="openExternal($event,'https://lohanitech.com')">
+                <img src="assets/lohanitech.png" width="150px" /></a>
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                Made with <i class="fa fa-heart"></i> by <strong> <a href="https://lohanitech.com" (click)="openExternal($event)">Lohanitech.com</a></strong> | <strong><a href="https://lohanitech.com/members/damodar-lohani" (click)="openExternal($event)">Damodar Lohani</a></strong>
+              </p>
+              <p>
+                Last Application You Will Ever Use to Find Free Stock Photos For Your Next Creative Project
+              </p>
+              <p>Default image download location</p>
+              <p>
+                {{downloadPath}}
+                <br />
+                <a class="button is-info" (click)="changeDownloadPath()">Change</a>
+                
+              </p>
+              <p>
+                For more information please visit <a href="http://openpics.xyz" (click)="openExternal($event)">openpics.xyz</a>
+              </p>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </div>
+    <button class="modal-close" (click)="toggleSettings()"></button>
+  </div>
