@@ -51,4 +51,7 @@ export class ImageGalleryComponent implements OnInit {
     event.preventDefault();
     this.electron.openExternal(event.target.href);
   }
+  trackPic(index,pic){
+    return pic ? pic.foundAt : undefined;
+  }
 }
