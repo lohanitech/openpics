@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { UnsplashApiService } from './unsplash-api.service';
-import { FlickrApiService } from './flickr-api.service';
 import { FreerangestockApiService } from './freerangestock-api.service';
 import { PixabayApiService } from './pixabay-api.service';
 import { TumblrApiService } from './tumblr-api.service';
