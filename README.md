@@ -48,7 +48,7 @@ Openpics is licensed under the GNU GPL License, Version 3.0. See [LICENSE](https
 - More coming soon..
 
 ## Donate
-[Click here to lend your support to OpenPics]
+[Click here to lend your support to OpenPics](https://openpics.xyz/donate/)
 
 ## Technologies used
 - [Electron](https://electron.atom.io)
