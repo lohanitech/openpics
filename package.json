@@ -1,11 +1,11 @@
 {
-  "name"    : "openpics",
+  "name": "openpics",
   "productName": "Open Pics",
-  "description":"Search and download free stock photos from multiple sources for your creative projects",
-  "version" : "0.1.0",
-  "author":{
-    "name":"Damodar Lohani",
-    "email":"dlohani48@gmail.com",
+  "description": "Search and download free stock photos from multiple sources for your creative projects",
+  "version": "0.1.0",
+  "author": {
+    "name": "Damodar Lohani",
+    "email": "dlohani48@gmail.com",
     "url": "https://lohanitech.com/members/damodar-lohani"
   },
   "homepage": "http://openpics.xyz",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0-beta.32.3",
     "@angular/compiler-cli": "^2.4.0",
+    "@types/blazy": "^1.5.30",
     "@types/electron": "^1.4.32",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.63",

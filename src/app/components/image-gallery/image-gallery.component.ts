@@ -22,6 +22,7 @@ export class ImageGalleryComponent implements OnInit {
     })
     picStore.pics$.subscribe(pics=>{
       this.pics = pics;
+      console.log(this.pics);
       this.scrollComplete = true;
     })
   }
@@ -49,5 +50,8 @@ export class ImageGalleryComponent implements OnInit {
   openExternal(event){
     event.preventDefault();
     this.electron.openExternal(event.target.href);
+  }
+  trackPic(index,pic){
+    return pic ? pic.foundAt : undefined;
   }
 }

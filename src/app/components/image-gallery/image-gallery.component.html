@@ -1,17 +1,18 @@
 <app-toolbar class="level notification" (search)="search($event)"></app-toolbar>
 <div class="photos {{fullWidth}}">
   <div class="box pics-container" (scroll)="scroll($event)">
-  <div id="pics" class="pics">
-      <div *ngIf="pics" class="gallery">
-        <div *ngFor="let pic of pics" class="pic">
-          <a [routerLink]="['view']" (click)="select(pic)">
-            <img [src]="pic.thumbnailUrl" />
-          </a>
-          <div class="pic-footer">
-            Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
-          </div>
+  <div id="pics" class="pics" appLazyLoad>
+      <div *ngIf="pics" class="gallery columns">
+        <div *ngFor="let col of pics" class="column">
+          <div *ngFor="let pic of col; trackBy: trackPic" class="pic">
+            <a [routerLink]="['view']" (click)="select(pic)">
+              <img class="b-lazy" src="assets/placeholder.png" [attr.data-src]="pic.thumbnailUrl" />
+            </a>
+            <div class="pic-footer">
+              Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
+            </div>
+          </div> 
         </div>
-        
       </div>
       </div>
       <div id="infinite"></div>
