@@ -9,11 +9,5 @@
     "url": "https://lohanitech.com/members/damodar-lohani"
   },
   "homepage": "http://openpics.xyz",
-  "main"    : "electron/electron.js",
-  "build":{
-    "appId":"com.lohanitech.openpics",
-    "electronVersion":"1.6.1",
-    "output":"../dist",
-    "compression":"maximum"
-  }
+  "main"    : "electron.js"
 }

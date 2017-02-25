@@ -1,7 +1,14 @@
 {
-  "name": "open-pics",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name"    : "openpics",
+  "productName": "Open Pics",
+  "description":"Search and download free stock photos from multiple sources for your creative projects",
+  "version" : "0.1.0",
+  "author":{
+    "name":"Damodar Lohani",
+    "email":"dlohani48@gmail.com",
+    "url": "https://lohanitech.com/members/damodar-lohani"
+  },
+  "homepage": "http://openpics.xyz",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
@@ -38,6 +45,7 @@
     "codelyzer": "~2.0.0-beta.4",
     "electron": "^1.6.1",
     "electron-angular-toolkit": "^0.0.7",
+    "electron-builder": "^14.4.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
@@ -51,10 +59,14 @@
     "tslint": "~4.4.2",
     "typescript": "~2.0.0"
   },
-  "main": "bundle/electron/electron.js",
+  "main": "bundle/electron.js",
   "build": {
-    "files": [
-      "bundle/**/*"
-    ]
+    "appId": "com.lohanitech.openpics",
+    "electronVersion": "1.6.1",
+    "compression": "maximum",
+    "directories": {
+      "app": "./bundle/",
+      "output": "dist"
+    }
   }
 }

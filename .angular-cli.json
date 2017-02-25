@@ -2,16 +2,20 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "version": "1.0.0-beta.32.3",
-    "name": "open-pics"
+    "name": "openpics"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "bundle",
       "assets": [
         "assets",
         "favicon.ico",
-        "electron"
+        {
+          "glob": "**/*",
+          "input": "./electron/",
+          "output": "./"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
