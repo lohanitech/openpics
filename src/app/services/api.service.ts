@@ -12,6 +12,7 @@ export class ApiService {
 
   }
   getRecentPics(){
+    this.picStore.initPics();
     this.unsplash.searching=false;
     this.unsplash.getRecentPics();
     this.pixabay.getRecentPics();

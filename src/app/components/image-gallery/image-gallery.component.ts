@@ -22,6 +22,7 @@ export class ImageGalleryComponent implements OnInit {
     })
     picStore.pics$.subscribe(pics=>{
       this.pics = pics;
+      console.log(this.pics);
       this.scrollComplete = true;
     })
   }
