@@ -33,7 +33,7 @@ export class PicStore{
         this._pics.next(existing);
     }
     initCollectionPics(pics){
-        // pics = this.divide(pics,this.cols);
+        pics = this.divide(pics,this.cols);
         this._pics.next(pics);
     }
     divide(pics, cols){

@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
     "@types/electron": "^1.4.32",
+    "blazy": "^1.8.2",
     "core-js": "^2.4.1",
     "immutable": "^3.8.1",
     "rxjs": "^5.1.0",

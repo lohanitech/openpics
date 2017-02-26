@@ -35,8 +35,8 @@ export class LazyLoadDirective  implements AfterViewChecked, OnDestroy {
 
     this.bLazyInstance = new Blazy({
       container: '#' + elementId,
-      // root: this.elementRef.nativeElement,
-      offset: this.bLazyOffset
+      offset: this.bLazyOffset,
+      selector: 'img'
     });
   }
 

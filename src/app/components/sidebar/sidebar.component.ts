@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { LocalStore } from '../../services/local-store';
 import { PicStore } from '../../services/pic-store/pic-store';
@@ -16,7 +15,7 @@ export class SidebarComponent implements OnInit {
   collections:any;
   isActive='';
   downloadPath;
-  constructor(public store:LocalStore, public picStore: PicStore, public electron: ElectronService, public router: Router, public zone: NgZone) {
+  constructor(public store:LocalStore, public picStore: PicStore, public electron: ElectronService, public zone: NgZone) {
     for (var key in SOURCES) {
       this.sources.push(SOURCES[key]);
     }
@@ -32,7 +31,6 @@ export class SidebarComponent implements OnInit {
   }
   selectCollection(collection){
     this.picStore.initCollectionPics(this.collections[collection.toLowerCase()]);
-    this.router.navigate(['']);
   }
   toggleSettings(){
     this.isActive = (this.isActive === '')?'is-active':'';
