@@ -17,7 +17,7 @@ export class ImageGalleryComponent implements OnInit {
   scrollComplete:boolean = true;
   fullWidth='';
   isActive='';
-  constructor(public api: ApiService, public electron:ElectronService, public picStore: PicStore, public store: LocalStore, public elementRef:ElementRef){
+  constructor(public api: ApiService, public electron:ElectronService, public picStore: PicStore, public store: LocalStore){
     store.showSidebar.subscribe(show=>{
       this.fullWidth = (show)?'':'full-width';
     })
@@ -27,17 +27,12 @@ export class ImageGalleryComponent implements OnInit {
       this.scrollComplete = true;
     })
   }
-  scroll(event){
-    var loaderPos = this.elementRef.nativeElement.querySelector('#infinite').offsetTop+this.elementRef.nativeElement.querySelector('#infinite').offsetHeight;
-    var scrollBottom = event.target.offsetHeight + event.target.scrollTop;
-    if(scrollBottom >= loaderPos){
-      if(this.scrollComplete){
-        this.scrollComplete=false;
-        this.api.nextPage();
-      }
-    }
+  nextPage(){
+    this.api.nextPage();
   }
-
+  prevPage(){
+    this.api.prevPage();
+  }
   ngOnInit() {
     
   }

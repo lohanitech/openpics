@@ -16,6 +16,7 @@
     overflow: auto;
   }
   .pics {
+    column-count: 6;
     .pic {
       min-height: 150px;
       position: relative;
@@ -47,4 +48,15 @@
 app-toolbar {
   margin-right: 20px;
   top: 20px;
+}
+
+@media(max-width: 1600px){
+  .pics{
+    column-count: 4 !important;
+  }
+}
+@media(max-width: 1200px){
+  .pics{
+    column-count: 3 !important;
+  }
 }

@@ -17,7 +17,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
-import { LazyLoadDirective } from './directives/lazy-load.directive';
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import { LazyLoadDirective } from './directives/lazy-load.directive';
     ToolbarComponent,
     ImageViewerComponent,
     ImageGalleryComponent,
-    LazyLoadDirective,
   ],
   imports: [
     BrowserModule,

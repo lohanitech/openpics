@@ -31,6 +31,15 @@ export class UnsplashApiService {
     }
     return
   }
+
+  prevPage(){
+    if(this.loading) return;
+    if(this.page == 1) return;
+    this.loading = true;
+    this.page--;
+    (this.searching)?this.search():this.getRecentPics();
+  }
+  
   setQuery(query){
     // this.query = encodeURIComponent(query).replace(/%20/g, "+");
     this.query = query;

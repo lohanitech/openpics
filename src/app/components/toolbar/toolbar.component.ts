@@ -27,4 +27,10 @@ export class ToolbarComponent implements OnInit {
   homeClicked($event){
     this.api.getRecentPics();
   }
+  nextPage(){
+    this.api.nextPage();
+  }
+  prevPage(){
+    this.api.prevPage();
+  }
 }
