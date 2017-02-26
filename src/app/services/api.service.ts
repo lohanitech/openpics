@@ -15,7 +15,9 @@ export class ApiService {
     this.picStore.initPics();
     this.unsplash.searching=false;
     this.unsplash.getRecentPics();
+    this.pixabay.searching = false;
     this.pixabay.getRecentPics();
+    this.tumblr.searching = false;
     this.tumblr.getRecentPics();
   }
   search(query){
@@ -24,6 +26,7 @@ export class ApiService {
     this.freerangestock.setQuery(query);
     this.freerangestock.search();
 
+    this.tumblr.searching = true;
     this.tumblr.setQuery(query);
     this.tumblr.search();
 
@@ -31,6 +34,7 @@ export class ApiService {
     this.unsplash.searching=true;
     this.unsplash.search();
 
+    this.pixabay.searching = true;
     this.pixabay.setQuery(query);
     this.pixabay.search()
   }
