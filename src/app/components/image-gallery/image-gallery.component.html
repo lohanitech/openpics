@@ -1,12 +1,12 @@
 <app-toolbar class="level notification" (search)="search($event)"></app-toolbar>
 <div class="photos {{fullWidth}}">
-  <div class="box pics-container" (scroll)="scroll($event)">
-  <div id="pics" class="pics" appLazyLoad>
+  <div id="pics-container" class="box pics-container" (scroll)="scroll($event)" appLazyLoad>
+  <div id="pics" class="pics">
       <div *ngIf="pics" class="gallery columns">
         <div *ngFor="let col of pics" class="column">
           <div *ngFor="let pic of col; trackBy: trackPic" class="pic">
-            <a [routerLink]="['view']" (click)="select(pic)">
-              <img class="b-lazy" src="assets/placeholder.png" [attr.data-src]="pic.thumbnailUrl" />
+            <a (click)="select(pic)">
+              <img src="assets/placeholder.png" [attr.data-src]="pic.thumbnailUrl" />
             </a>
             <div class="pic-footer">
               Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
@@ -17,4 +17,12 @@
       </div>
       <div id="infinite"></div>
     </div>
+</div>
+
+<div class="modal {{isActive}}">
+  <div class="modal-background" (click)="toggleViewer()"></div>
+  <div class="modal-content">
+    <app-image-viewer *ngIf="picStore.selectedPic" [pic]="picStore.selectedPic"></app-image-viewer>
+  </div>
+  <button class="modal-close" (click)="toggleViewer()"></button>
 </div>

@@ -16,6 +16,7 @@ export class ImageGalleryComponent implements OnInit {
   query:string;
   scrollComplete:boolean = true;
   fullWidth='';
+  isActive='';
   constructor(public api: ApiService, public electron:ElectronService, public picStore: PicStore, public store: LocalStore, public elementRef:ElementRef){
     store.showSidebar.subscribe(show=>{
       this.fullWidth = (show)?'':'full-width';
@@ -42,6 +43,7 @@ export class ImageGalleryComponent implements OnInit {
   }
   select(pic:any){
     this.picStore.selectedPic = pic;
+    this.toggleViewer();
   }
 
   search(event){
@@ -53,5 +55,8 @@ export class ImageGalleryComponent implements OnInit {
   }
   trackPic(index,pic){
     return pic ? pic.foundAt : undefined;
+  }
+  toggleViewer(){
+    this.isActive = (this.isActive === '')?'is-active':'';
   }
 }
