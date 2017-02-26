@@ -47,17 +47,21 @@ export class TumblrApiService {
     this.query = encodeURIComponent(query).replace(/%20/g, "+");
   }
   search(){
+    this.limit = 20;
     this.loading=true;
     let param={
       tag:this.query,
-      offset:((this.page-1)*this.limit)
+      offset:((this.page-1)*this.limit),
+      limit: this.limit
     }
     this.getPics(param);
   }
   getRecentPics(){
+    this.limit=8;
     this.loading=true;
     let param={
-      offset:((this.page-1)*this.limit)
+      offset:((this.page-1)*this.limit),
+      limit:this.limit
     }
     this.getPics(param);
   }

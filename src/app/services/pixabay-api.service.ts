@@ -13,6 +13,7 @@ export class PixabayApiService {
   loading: boolean = false;
   page: number = 1;
   totalPages:number = 1;
+  perPage:number=20;
   query:string;
   cache = {};
   constructor(public http: Http, public picStore: PicStore) {}
@@ -28,20 +29,24 @@ export class PixabayApiService {
     this.query = encodeURIComponent(query).replace(/%20/g, "+");
   }
   search(){
+    this.perPage = 20;
     if(this.page > this.totalPages){
       return true;
     }
     this.loading=true;
     let param={
       q:this.query,
-      page:this.page
+      page:this.page,
+      per_page: this.perPage
     }
     this.getPics('',param);
   }
   getRecentPics(){
+    this.perPage=5;
     this.loading=true;
     var param={
-      page: this.page
+      page: this.page,
+      per_page: this.perPage
     }
     this.getPics('',param);
   }

@@ -16,6 +16,9 @@ export class AppComponent {
       this.showSidebar = show;
       this.fullWidth = (show)?'':'full-width';
     });
+  }
+  ngOnInit(){
     this.api.getRecentPics();
+    
   }
 }
