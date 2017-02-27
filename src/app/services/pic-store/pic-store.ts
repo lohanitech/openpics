@@ -8,6 +8,7 @@ import {BehaviorSubject} from "rxjs/Rx";
 export class PicStore{
 	private _pics: BehaviorSubject<List<Pic>> = new BehaviorSubject(List([]));
     public pics$ = this._pics.asObservable();
+    public selectedCollection = null;
     public selectedPic: Pic;
     constructor() {}
 
@@ -20,7 +21,8 @@ export class PicStore{
     addPics(pics){
         this._pics.next(this._pics.getValue().concat(pics).toList());
     }
-    initCollectionPics(pics){
+    initCollectionPics(pics,collection){
+        this.selectedCollection = collection;
         this._pics.next(pics);
     }
 }

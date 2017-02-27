@@ -13,6 +13,7 @@ export class ApiService {
   }
   getRecentPics(){
     this.picStore.initPics();
+    this.picStore.selectedCollection = null;
     this.unsplash.searching=false;
     this.unsplash.getRecentPics();
     this.pixabay.searching = false;
@@ -22,6 +23,7 @@ export class ApiService {
   }
   search(query){
     this.picStore.initPics();
+    this.picStore.selectedCollection = null;
     
     this.freerangestock.page = 1;
     this.freerangestock.setQuery(query);
@@ -73,10 +75,10 @@ export class ApiService {
     }
   }
   showPrev(){
-    return (this.tumblr.page > 1 || this.pixabay.page > 1 || this.unsplash.page > 1 || this.freerangestock.page > 1);
+    return ((this.tumblr.page > 1 || this.pixabay.page > 1 || this.unsplash.page > 1 || this.freerangestock.page > 1) && this.picStore.selectedCollection == null);
   }
   showNext(){
-    return (this.pixabay.page < this.pixabay.totalPages || this.unsplash.page < this.unsplash.totalPages || this.freerangestock.page < this.freerangestock.totalPages);
+    return ((this.pixabay.page < this.pixabay.totalPages || this.unsplash.page < this.unsplash.totalPages || this.freerangestock.page < this.freerangestock.totalPages) && this.picStore.selectedCollection == null);
   }
   loadComplete(){
     return !(this.tumblr.loading || this.pixabay.loading || this.unsplash.loading || this.freerangestock.loading);
