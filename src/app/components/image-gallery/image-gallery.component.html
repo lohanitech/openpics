@@ -14,16 +14,18 @@
                     <i class="fa fa-download"></i>
                   </span>
                 </a>
-                <a *ngIf="!isFavourite(pic)"  class="button" (click)="addToFavourite(pic)">
-                  <span class="icon">
-                    <i class="fa fa-heart"></i>
-                  </span>
-                </a>
-                <a *ngIf="isFavourite(pic)"  class="button is-danger" (click)="removeFromFavourite(pic)">
-                  <span class="icon">
-                    <i class="fa fa-heart"></i>
-                  </span>
-                </a>
+                <span *ngIf="pic.source.name !='Pixabay'">
+                  <a *ngIf="!isFavourite(pic)"  class="button" (click)="addToFavourite(pic)">
+                    <span class="icon">
+                      <i class="fa fa-heart"></i>
+                    </span>
+                  </a>
+                  <a *ngIf="isFavourite(pic)"  class="button is-danger" (click)="removeFromFavourite(pic)">
+                    <span class="icon">
+                      <i class="fa fa-heart"></i>
+                    </span>
+                  </a>
+                </span>
                 <a class="button is-info" (click)="select(pic)">
                   <span class="icon">
                     <i class="fa fa-eye"></i>
