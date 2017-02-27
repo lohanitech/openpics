@@ -60,10 +60,12 @@ export class LocalStore{
         this._collections.next(collections);
     }
     isInCollection(pic, collection){
+        collection = collection.toLowerCase();
         let item = this._collections.getValue()[collection].find(item => item.foundAt == pic.foundAt);
         return (item !== undefined);
     }
     removeFromCollection(pic, collection){
+        collection = collection.toLowerCase();
         let pics = this._collections.getValue()[collection];
         let item = pics.find(item => item.fullUrl === pic.fullUrl);
         pics.splice(pics.indexOf(item), 1);
@@ -84,6 +86,7 @@ export class LocalStore{
         this.updateCollections(collections);
     }
     addPicToCollection(pic, collection){
+        collection = collection.toLowerCase();
         var collections = this._collections.getValue();
         collections[collection].push(pic);
         this.storeCollections(collections);
