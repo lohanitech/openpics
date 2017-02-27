@@ -54,4 +54,14 @@ export class ImageGalleryComponent implements OnInit {
   toggleViewer(){
     this.isActive = (this.isActive === '')?'is-active':'';
   }
+
+  addToFavourite(pic){
+    this.store.addPicToCollection(pic,LocalStore.KEY_FAVOURITE)
+  }
+  removeFromFavourite(pic){
+    this.store.removeFromCollection(pic, LocalStore.KEY_FAVOURITE);
+  }
+  isFavourite(pic){
+    return this.store.isInCollection(pic,LocalStore.KEY_FAVOURITE);
+  }
 }
