@@ -96,13 +96,16 @@
   <div id="add-album-modal" class="modal {{showAddAlbum}}">
     <div class="modal-background" (click)="toggleAddAlbum()"></div>
     <div class="modal-content">
-      <div class="box">
-        <p class="control has-addons">
-          <input class="input" type="text" placeholder="Name your album" [(ngModel)]="albumName">
-          <a class="button is-info" (click)="saveAlbum()">
-            Save
-          </a>
-        </p>
+      <div class="panel">
+        <p class="panel-heading">Add Album</p>
+        <div class="panel-block">
+            <input class="input" type="text" placeholder="Name your album" [(ngModel)]="albumName">
+        </div>
+        <div class="panel-block">
+            <a class="button is-info" (click)="saveAlbum()">
+              Save
+            </a>
+        </div>
       </div>
     </div>
     <button class="modal-close" (click)="toggleAddAlbum()"></button>
