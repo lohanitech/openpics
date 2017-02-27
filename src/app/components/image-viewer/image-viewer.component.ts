@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PicStore } from '../../services/pic-store/pic-store';
 import { LocalStore } from '../../services/local-store';
 import { ElectronService } from '../../services/electron.service';
@@ -11,20 +11,8 @@ import { ElectronService } from '../../services/electron.service';
 export class ImageViewerComponent implements OnInit {
   showSidebar:boolean;
   fullWidth = '';
-  progress=-1;
-  isLoading = '';
   @Input() pic:any;
-  constructor(private zone: NgZone, private picStore: PicStore, private store:LocalStore, public electron: ElectronService) {
-    electron.progress.subscribe(progress=>{
-      this.zone.run(()=>{
-        this.progress=progress; 
-      })
-    });
-    electron.isDownloading.subscribe(loading=>{
-      this.zone.run(()=>{
-        this.isLoading = loading;
-      })
-    })
+  constructor(private picStore: PicStore, private store:LocalStore, public electron: ElectronService) {
   }
 
   ngOnInit() {

@@ -37,11 +37,21 @@ export class ElectronService {
       this._downloading.next('is-loading');
       this._progress.next(progress);
     });
+    electron.ipcRenderer.on('download-begin',(event,fileName)=>{
+      let notification = new Notification('Download Started',{body: 'Beginning download of ' + fileName});
+    })
+    electron.ipcRenderer.on('download-failed',(event,fileName)=>{
+      let notification = new Notification('Download Failed',{body: 'Couldn\'t download ' + fileName});
+
+    });
+    electron.ipcRenderer.on('download-interrupted',(event,fileName)=>{
+      let notification = new Notification('Download Failed',{body: 'Couldn\'t download ' + fileName});
+    })
     electron.ipcRenderer.on('download-complete', (event,path)=>{
       let notification = new Notification('Download Complete',{body:'Download Complete <br /> File saved at: ' + path});
       this._downloading.next('');
       this._progress.next(-1);
-    })
+    });
   }
   changeDownloadPath(){
     electron.ipcRenderer.send('change-download-path');

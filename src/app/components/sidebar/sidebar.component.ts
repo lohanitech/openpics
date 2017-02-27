@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
   selectCollection(collection){
-    this.picStore.initCollectionPics(this.collections[collection.toLowerCase()]);
+    this.picStore.initCollectionPics(this.collections[collection.toLowerCase()], collection);
   }
   toggleSettings(){
     this.isActive = (this.isActive === '')?'is-active':'';

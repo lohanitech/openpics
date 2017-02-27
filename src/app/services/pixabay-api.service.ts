@@ -16,15 +16,30 @@ export class PixabayApiService {
   perPage:number=20;
   query:string;
   cache = {};
+  searching:boolean = false;
+
   constructor(public http: Http, public picStore: PicStore) {}
   nextPage(){
     if(!this.loading){
       this.loading=true;
       this.page++;
-      this.search();
+      if(this.searching){
+        this.search();
+      }else{
+        this.getRecentPics();
+      }
     }
     return
   }
+
+  prevPage(){
+    if(this.loading) return;
+    if(this.page == 1) return;
+    this.loading = true;
+    this.page--;
+    (this.searching)?this.search():this.getRecentPics();
+  }
+
   setQuery(query){
     this.query = encodeURIComponent(query).replace(/%20/g, "+");
   }

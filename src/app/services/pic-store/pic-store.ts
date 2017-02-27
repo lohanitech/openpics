@@ -6,42 +6,23 @@ import {List} from "immutable";
 import {BehaviorSubject} from "rxjs/Rx";
 
 export class PicStore{
-	private _pics: BehaviorSubject<any> = new BehaviorSubject([]);
+	private _pics: BehaviorSubject<List<Pic>> = new BehaviorSubject(List([]));
     public pics$ = this._pics.asObservable();
+    public selectedCollection = null;
     public selectedPic: Pic;
-    public cols = 4;
-    constructor() {
-        
-    }
+    constructor() {}
 
     get pics() {
         return this._pics.asObservable();
     }
     initPics(){
-        var iEmpty = [];
-        for(var i=0; i<this.cols; i++){
-            iEmpty.push([]);
-        }
-        this._pics.next(iEmpty);
+        this._pics.next(List([]));
     }
     addPics(pics){
-        pics = this.divide(pics,this.cols);
-        let existing = this._pics.getValue();
-        for(var i=0; i<this.cols; i++){
-            existing[i] = existing[i].concat(pics[i]);
-        }
-        this._pics.next(existing);
+        this._pics.next(this._pics.getValue().concat(pics).toList());
     }
-    initCollectionPics(pics){
-        pics = this.divide(JSON.parse(JSON.stringify(pics)),this.cols);
+    initCollectionPics(pics,collection){
+        this.selectedCollection = collection;
         this._pics.next(pics);
-    }
-    divide(pics, cols){
-        var size = Math.ceil(pics.length/cols);
-        var divided = [];
-        for(var i=0; i<cols; i++){
-            divided.push(pics.splice(0,size));
-        }
-        return divided;
     }
 }

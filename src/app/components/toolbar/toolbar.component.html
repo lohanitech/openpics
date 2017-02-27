@@ -9,8 +9,14 @@
       <i class="fa fa-home"></i>
     </span> 
   </a>
+   <span class="level-item" *ngIf="api.showPrev() && api.loadComplete()" >
+    <a class="button is-primary" (click)="prevPage()">Previous</a>
+  </span>
 </div>
 <div class="level-right">
+  <span class="level-item" *ngIf="api.loadComplete() && api.showNext()" >
+    <a class="button is-primary" (click)="nextPage()">Next</a>
+  </span>
   <span class="level-item">
       <p class="control has-addons">
         <input autofocus class="input" type="text" [(ngModel)]="query" placeholder="search" (change)="searchClicked($event)">

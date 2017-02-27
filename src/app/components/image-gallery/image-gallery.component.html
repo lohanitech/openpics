@@ -1,21 +1,54 @@
 <app-toolbar class="level notification" (search)="search($event)"></app-toolbar>
 <div class="photos {{fullWidth}}">
-  <div id="pics-container" class="box pics-container" (scroll)="scroll($event)" appLazyLoad>
+  <div id="pics-container" class="box pics-container">
   <div id="pics" class="pics">
-      <div *ngIf="pics" class="gallery columns">
-        <div *ngFor="let col of pics" class="column">
-          <div *ngFor="let pic of col; trackBy: trackPic" class="pic">
+      <div *ngIf="pics" class="gallery">
+          <div *ngFor="let pic of pics; trackBy: trackPic" class="pic">
             <a (click)="select(pic)">
-              <img src="assets/placeholder.png" [attr.data-src]="pic.thumbnailUrl" />
+              <img data-src="assets/placeholder.png" [src]="pic.thumbnailUrl" />
             </a>
-            <div class="pic-footer">
-              Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
+            <div class="pic-buttons">
+              <div class="buttons">
+                <a class="button is-primary" [href]="pic.fullUrl" download>
+                  <span class="icon">
+                    <i class="fa fa-download"></i>
+                  </span>
+                </a>
+                <a *ngIf="!isFavourite(pic)"  class="button" (click)="addToFavourite(pic)">
+                  <span class="icon">
+                    <i class="fa fa-heart"></i>
+                  </span>
+                </a>
+                <a *ngIf="isFavourite(pic)"  class="button is-danger" (click)="removeFromFavourite(pic)">
+                  <span class="icon">
+                    <i class="fa fa-heart"></i>
+                  </span>
+                </a>
+                <a class="button is-info" (click)="select(pic)">
+                  <span class="icon">
+                    <i class="fa fa-eye"></i>
+                  </span>
+                </a>
+              </div>
+              <div class="pic-footer">
+                Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
+              </div>
             </div>
           </div> 
+      </div>
+      </div>
+      <div id="infinite" class="level" *ngIf="api.loadComplete()" >
+        <div class="level-left">
+          <span *ngIf="api.showPrev()"  class="level-item">
+            <a class="button is-primary" (click)="prevPage()">Previous</a>
+          </span>
+        </div>
+        <div class="level-right">
+          <span *ngIf="api.showNext()"  class="level-item">
+            <a class="button is-primary" (click)="nextPage()">Next</a>
+          </span>
         </div>
       </div>
-      </div>
-      <div id="infinite"></div>
     </div>
 </div>
 
