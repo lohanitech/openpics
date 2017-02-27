@@ -78,19 +78,21 @@ function changeDownloadPath(){
 
 function initDownload(path){
   win.webContents.session.on('will-download', (event, item, webContents) => {
-  // Set the save path, making Electron not to prompt a save dialog.
   var savePath = app.getPath('downloads') +"/"+item.getFilename();
   item.setSavePath(savePath);
-  console.log('downloading');
+  webContents.send('download-begin', item.getFilename());
   item.on('updated', (event, state) => {
     if (state === 'interrupted') {
+      webContents.send('download-interrupted',item.getFilename());
       console.log('Download is interrupted but can be resumed')
     } else if (state === 'progressing') {
       if (item.isPaused()) {
+        webContents.send('download-paused',state);
         console.log('Download is paused')
       } else {
-        win.webContents.send('download-progress',Math.ceil((item.getReceivedBytes()/item.getTotalBytes())*100))
-        console.log(`Received bytes: ${item.getReceivedBytes()}`)
+        let progress = Math.ceil((item.getReceivedBytes()/item.getTotalBytes())*100);
+        webContents.send('download-progress',progress)
+        console.log(`Received bytes: ${progress}`)
       }
     }
   })
@@ -99,6 +101,7 @@ function initDownload(path){
         win.webContents.send('download-complete',savePath)
       console.log('Download successfully')
     } else {
+      webContents.send('download-failed',item.getFilename());
       console.log(`Download failed: ${state}`)
     }
   })
