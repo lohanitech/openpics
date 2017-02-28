@@ -17,6 +17,8 @@ export class ImageGalleryComponent implements OnInit {
   scrollComplete:boolean = true;
   fullWidth='';
   isActive='';
+  showAddToAlbum='';
+  collections:any;
   constructor(public api: ApiService, public electron:ElectronService, public picStore: PicStore, public store: LocalStore){
     store.showSidebar.subscribe(show=>{
       this.fullWidth = (show)?'':'full-width';
@@ -26,6 +28,7 @@ export class ImageGalleryComponent implements OnInit {
       console.log(this.pics);
       this.scrollComplete = true;
     })
+    store.collections.subscribe(collections=>this.collections = collections.collections);
   }
   nextPage(){
     this.api.nextPage();
@@ -58,10 +61,25 @@ export class ImageGalleryComponent implements OnInit {
   addToFavourite(pic){
     this.store.addPicToCollection(pic,LocalStore.KEY_FAVOURITE)
   }
+  toggleAddToAlbum(pic){
+    this.picStore.selectedPic = pic;
+    this.showAddToAlbum = (this.showAddToAlbum === '')?'is-active':'';
+  }
+  addToAlbum(pic,album){
+    this.store.addPicToCollection(pic,album);
+    this.toggleAddToAlbum(pic);
+  }
+  removeFromAlbum(pic,album){
+    this.store.removeFromCollection(pic,album);
+    this.toggleAddToAlbum(pic);
+  }
   removeFromFavourite(pic){
     this.store.removeFromCollection(pic, LocalStore.KEY_FAVOURITE);
   }
   isFavourite(pic){
     return this.store.isInCollection(pic,LocalStore.KEY_FAVOURITE);
+  }
+  isInCollection(pic,album){
+    return this.store.isInCollection(pic, album);
   }
 }

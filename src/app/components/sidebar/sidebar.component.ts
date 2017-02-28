@@ -14,7 +14,9 @@ export class SidebarComponent implements OnInit {
   sources:any=[];
   collections:any;
   isActive='';
+  showAddAlbum='';
   downloadPath;
+  albumName;
   constructor(public store:LocalStore, public picStore: PicStore, public electron: ElectronService, public zone: NgZone) {
     for (var key in SOURCES) {
       this.sources.push(SOURCES[key]);
@@ -34,6 +36,15 @@ export class SidebarComponent implements OnInit {
   }
   toggleSettings(){
     this.isActive = (this.isActive === '')?'is-active':'';
+  }
+  toggleAddAlbum(){
+    this.showAddAlbum = (this.showAddAlbum === '')?'is-active':'';
+  }
+  saveAlbum(){
+    if(!this.albumName)return;
+    this.store.addCollection(this.albumName);
+    this.albumName = null;
+    this.toggleAddAlbum();
   }
   changeDownloadPath(){
     this.electron.changeDownloadPath();

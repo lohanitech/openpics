@@ -64,6 +64,19 @@ app-toolbar {
   margin-right: 20px;
   top: 20px;
 }
+.modal{
+  .menu{
+    ul{
+      list-style: none;
+    }
+  }
+  .media{
+    img{
+      max-width: 200px;
+      height: auto;
+    }
+  }
+}
 
 @media(max-width: 1600px){
   .pics{
