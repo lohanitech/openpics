@@ -12,7 +12,7 @@ export class ToolbarComponent implements OnInit {
   @Output() search = new EventEmitter();
   query: string;
   showSidebar:boolean;
-  showDeleteConfirm: string = '';
+  deleteConfirm: string = '';
   constructor(public store: LocalStore, private api: ApiService, private picStore: PicStore) {
     store.showSidebar.subscribe(show=>this.showSidebar = show);
    }
@@ -41,10 +41,10 @@ export class ToolbarComponent implements OnInit {
   deleteCollection(confirmed?:boolean){
     if(confirmed){
       this.store.removeCollection(this.picStore.selectedCollection);
-      this.showDeleteConfirm = '';
+      this.deleteConfirm = '';
       this.picStore.initPics();
     }else{
-      this.showDeleteConfirm = 'is-active'
+      this.deleteConfirm = 'is-active'
     }
   }
 }
