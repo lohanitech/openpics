@@ -93,6 +93,16 @@ export class LocalStore{
         this.storeCollections(collections);
         this.updateCollections(collections);
     }
+    editCollection(oldName:string,newName:string){
+        var key = oldName.toLowerCase();
+        var newKey = newName.toLowerCase();
+        var collections = this._collections.getValue();
+        collections[newKey] = collections[key];
+        delete collections[key];
+        collections.collections.splice(collections.collections.indexOf(oldName),1, newName);
+        this.storeCollections(collections);
+        this.updateCollections(collections);
+    }
     addPicToCollection(pic, collection){
         collection = collection.toLowerCase();
         var collections = this._collections.getValue();
