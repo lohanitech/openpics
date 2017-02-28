@@ -13,6 +13,8 @@ export class ToolbarComponent implements OnInit {
   query: string;
   showSidebar:boolean;
   deleteConfirm: string = '';
+  editDialog: string = '';
+  collectionName: string = '';
   constructor(public store: LocalStore, private api: ApiService, private picStore: PicStore) {
     store.showSidebar.subscribe(show=>this.showSidebar = show);
    }
@@ -45,6 +47,15 @@ export class ToolbarComponent implements OnInit {
       this.picStore.initPics();
     }else{
       this.deleteConfirm = 'is-active'
+    }
+  }
+  editCollection(confirmed?:boolean){
+    if(confirmed){
+      this.store.editCollection(this.picStore.selectedCollection, this.collectionName);
+      this.editDialog = '';
+    }else{
+      this.collectionName = this.picStore.selectedCollection;
+      this.editDialog = 'is-active';
     }
   }
 }
