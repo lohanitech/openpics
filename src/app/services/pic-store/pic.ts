@@ -1,4 +1,4 @@
-import {List,Record} from 'immutable';
+import {Record} from 'immutable';
 
 const PicRecord = Record({
 	description: "",
@@ -26,8 +26,5 @@ export class Pic extends PicRecord{
 		super(pic);
 	}
 
-	fromTumblrPic(tumblrpic){
-		
-	}
 	
 }
