@@ -12,6 +12,9 @@
    <span class="level-item" *ngIf="api.showPrev() && api.loadComplete()" >
     <a class="button is-primary" (click)="prevPage()">Previous</a>
   </span>
+  <span class="level-item" *ngIf="showDeleteCollection()" >
+    <a class="button is-danger" (click)="deleteCollection()">Delete</a>
+  </span>
 </div>
 <div class="level-right">
   <span class="level-item" *ngIf="api.loadComplete() && api.showNext()" >
@@ -25,4 +28,21 @@
         </a>
       </p>
   </span>
+</div>
+
+<div class="modal {{showDeleteConfirm}}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Delete Album</p>
+        <button class="delete" (click)="showDeleteConfirm=''"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="title">Are you sure you want to delete album {{picStore.selectedCollection}}?</p>
+      </section>
+      <footer class="modal-card-foot">
+        <a class="button is-danger" (click)="deleteCollection(true)">Delete</a>
+        <a class="button is-info" (click)="showDeleteConfirm=''">Cancel</a>
+      </footer>
+    </div>
 </div>
