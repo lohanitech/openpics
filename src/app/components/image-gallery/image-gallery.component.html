@@ -1,19 +1,102 @@
 <app-toolbar class="level notification" (search)="search($event)"></app-toolbar>
 <div class="photos {{fullWidth}}">
-  <div class="box pics-container" (scroll)="scroll($event)">
+  <div id="pics-container" class="box pics-container">
   <div id="pics" class="pics">
       <div *ngIf="pics" class="gallery">
-        <div *ngFor="let pic of pics" class="pic">
-          <a [routerLink]="['view']" (click)="select(pic)">
-            <img [src]="pic.thumbnailUrl" />
-          </a>
-          <div class="pic-footer">
-            Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
+          <div *ngFor="let pic of pics; trackBy: trackPic" class="pic">
+            <a (click)="select(pic)">
+              <img data-src="assets/placeholder.png" [src]="pic.thumbnailUrl" />
+            </a>
+            <div class="pic-buttons">
+              <div class="buttons">
+                <a class="button is-primary" [href]="pic.fullUrl" download>
+                  <span class="icon">
+                    <i class="fa fa-download"></i>
+                  </span>
+                </a>
+                <span *ngIf="pic.source.name !='Pixabay'">
+                  <a *ngIf="!isFavourite(pic)"  class="button" (click)="addToFavourite(pic)">
+                    <span class="icon">
+                      <i class="fa fa-heart"></i>
+                    </span>
+                  </a>
+                  <a *ngIf="isFavourite(pic)"  class="button is-danger" (click)="removeFromFavourite(pic)">
+                    <span class="icon">
+                      <i class="fa fa-heart"></i>
+                    </span>
+                  </a>
+                  <a  class="button is-primary" (click)="toggleAddToAlbum(pic)">
+                    <span class="icon">
+                      <i class="fa fa-plus-circle"></i>
+                    </span>
+                  </a>
+                </span>
+                <a class="button is-info" (click)="select(pic)">
+                  <span class="icon">
+                    <i class="fa fa-eye"></i>
+                  </span>
+                </a>
+              </div>
+              <div class="pic-footer">
+                Source: <a [href]="pic.foundAt" (click)="openExternal($event)">{{pic.source.name}}</a> | By: <a [href]="pic.author.url" (click)="openExternal($event)">{{pic.author.name}}</a>
+              </div>
+            </div>
+          </div> 
+      </div>
+      </div>
+      <div id="infinite" class="level" *ngIf="api.loadComplete()" >
+        <div class="level-left">
+          <span *ngIf="api.showPrev()"  class="level-item">
+            <a class="button is-primary" (click)="prevPage()">Previous</a>
+          </span>
+        </div>
+        <div class="level-right">
+          <span *ngIf="api.showNext()"  class="level-item">
+            <a class="button is-primary" (click)="nextPage()">Next</a>
+          </span>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal {{isActive}}">
+  <div class="modal-background" (click)="toggleViewer()"></div>
+  <div class="modal-content">
+    <app-image-viewer *ngIf="picStore.selectedPic" [pic]="picStore.selectedPic"></app-image-viewer>
+  </div>
+  <button class="modal-close" (click)="toggleViewer()"></button>
+</div>
+
+<div *ngIf="showAddToAlbum"  class="modal {{showAddToAlbum}}">
+  <div class="modal-background" (click)="toggleAddToAlbum()"></div>
+  <div class="modal-content">
+    <div class="box">
+      <article class="media">
+        <figure class="media-left">
+          <p class="image">
+            <img [src]="picStore.selectedPic.thumbnailUrl">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <nav class="menu">
+              <p class="menu-label">Add to</p>
+              <ul class="menu-list">
+                <ng-container *ngFor="let collection of collections">
+                  <li *ngIf="!isInCollection(picStore.selectedPic, collection)" ><a (click)="addToAlbum(picStore.selectedPic,collection)">{{collection}}</a></li> 
+                </ng-container>
+              </ul>
+              <p class="menu-label">Remove From</p>
+              <ul class="menu-list">
+                <ng-container *ngFor="let collection of collections">
+                  <li *ngIf="isInCollection(picStore.selectedPic, collection)" ><a (click)="removeFromAlbum(picStore.selectedPic,collection)">{{collection}}</a></li> 
+                </ng-container>
+              </ul>
+            </nav>
           </div>
         </div>
-        
-      </div>
-      </div>
-      <div id="infinite"></div>
+      </article>
     </div>
+  </div>
+  <button class="modal-close" (click)="toggleAddToAlbum()"></button>
 </div>

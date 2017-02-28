@@ -3,9 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-
-import { routing } from './app.routes';
-
 import { AppComponent } from './app.component';
 import { UnsplashApiService } from './services/unsplash-api.service';
 import { TumblrApiService } from './services/tumblr-api.service';
@@ -33,8 +30,7 @@ import { ImageGalleryComponent } from './components/image-gallery/image-gallery.
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    routing
+    HttpModule
   ],
   providers: [UnsplashApiService, TumblrApiService, PixabayApiService, FreerangestockApiService, ApiService, ElectronService, PicStore, LocalStore],
   bootstrap: [AppComponent]

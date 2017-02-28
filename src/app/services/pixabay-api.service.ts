@@ -13,35 +13,55 @@ export class PixabayApiService {
   loading: boolean = false;
   page: number = 1;
   totalPages:number = 1;
+  perPage:number=20;
   query:string;
   cache = {};
+  searching:boolean = false;
+
   constructor(public http: Http, public picStore: PicStore) {}
   nextPage(){
     if(!this.loading){
       this.loading=true;
       this.page++;
-      this.search();
+      if(this.searching){
+        this.search();
+      }else{
+        this.getRecentPics();
+      }
     }
     return
   }
+
+  prevPage(){
+    if(this.loading) return;
+    if(this.page == 1) return;
+    this.loading = true;
+    this.page--;
+    (this.searching)?this.search():this.getRecentPics();
+  }
+
   setQuery(query){
     this.query = encodeURIComponent(query).replace(/%20/g, "+");
   }
   search(){
+    this.perPage = 20;
     if(this.page > this.totalPages){
       return true;
     }
     this.loading=true;
     let param={
       q:this.query,
-      page:this.page
+      page:this.page,
+      per_page: this.perPage
     }
     this.getPics('',param);
   }
   getRecentPics(){
+    this.perPage=5;
     this.loading=true;
     var param={
-      page: this.page
+      page: this.page,
+      per_page: this.perPage
     }
     this.getPics('',param);
   }

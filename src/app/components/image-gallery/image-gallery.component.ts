@@ -16,31 +16,32 @@ export class ImageGalleryComponent implements OnInit {
   query:string;
   scrollComplete:boolean = true;
   fullWidth='';
-  constructor(public api: ApiService, public electron:ElectronService, public picStore: PicStore, public store: LocalStore, public elementRef:ElementRef){
+  isActive='';
+  showAddToAlbum='';
+  collections:any;
+  constructor(public api: ApiService, public electron:ElectronService, public picStore: PicStore, public store: LocalStore){
     store.showSidebar.subscribe(show=>{
       this.fullWidth = (show)?'':'full-width';
     })
     picStore.pics$.subscribe(pics=>{
       this.pics = pics;
+      console.log(this.pics);
       this.scrollComplete = true;
     })
+    store.collections.subscribe(collections=>this.collections = collections.collections);
   }
-  scroll(event){
-    var loaderPos = this.elementRef.nativeElement.querySelector('#infinite').offsetTop+this.elementRef.nativeElement.querySelector('#infinite').offsetHeight;
-    var scrollBottom = event.target.offsetHeight + event.target.scrollTop;
-    if(scrollBottom >= loaderPos){
-      if(this.scrollComplete){
-        this.scrollComplete=false;
-        this.api.nextPage();
-      }
-    }
+  nextPage(){
+    this.api.nextPage();
   }
-
+  prevPage(){
+    this.api.prevPage();
+  }
   ngOnInit() {
     
   }
   select(pic:any){
     this.picStore.selectedPic = pic;
+    this.toggleViewer();
   }
 
   search(event){
@@ -49,5 +50,36 @@ export class ImageGalleryComponent implements OnInit {
   openExternal(event){
     event.preventDefault();
     this.electron.openExternal(event.target.href);
+  }
+  trackPic(index,pic){
+    return pic ? pic.foundAt : undefined;
+  }
+  toggleViewer(){
+    this.isActive = (this.isActive === '')?'is-active':'';
+  }
+
+  addToFavourite(pic){
+    this.store.addPicToCollection(pic,LocalStore.KEY_FAVOURITE)
+  }
+  toggleAddToAlbum(pic){
+    this.picStore.selectedPic = pic;
+    this.showAddToAlbum = (this.showAddToAlbum === '')?'is-active':'';
+  }
+  addToAlbum(pic,album){
+    this.store.addPicToCollection(pic,album);
+    this.toggleAddToAlbum(pic);
+  }
+  removeFromAlbum(pic,album){
+    this.store.removeFromCollection(pic,album);
+    this.toggleAddToAlbum(pic);
+  }
+  removeFromFavourite(pic){
+    this.store.removeFromCollection(pic, LocalStore.KEY_FAVOURITE);
+  }
+  isFavourite(pic){
+    return this.store.isInCollection(pic,LocalStore.KEY_FAVOURITE);
+  }
+  isInCollection(pic,album){
+    return this.store.isInCollection(pic, album);
   }
 }

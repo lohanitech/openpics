@@ -1,33 +1,16 @@
-<div *ngIf="pic">
+<div>
   <div class="toolbar notification">
     <!-- Main container -->
     <nav class="level">
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
-          <a class="button is-info" (click)="toggleSidebar()">
-            <span class="icon">
-              <i class="fa fa-bars"></i>
-            </span>
-          </a>
-        </div>
-        <div class="level-item">
-          <a class="button" routerLink="">
-            <span class="icon">
-              <i class="fa fa-angle-left"></i>
-            </span>
-          </a>
-        </div>
-        <div class="level-item">
           Add to Collection
         </div>
       </div>
       <!-- Right side -->
       <div class="level-right">
-        <div *ngIf="progress !== -1"  class="level-item">
-          <progress style="width: 100px" [value]="progress" class="progress is-primary" max="100">Downloading</progress>
-        </div>
-        <div class="level-item"><a target="_blank" class="button is-primary {{isLoading}}" [href]="pic.fullUrl" download>
+        <div class="level-item"><a target="_blank" class="button is-primary" [href]="pic.fullUrl" download>
           <span class="icon">
             <i class="fa fa-download"></i>
           </span>

@@ -1,11 +1,11 @@
 {
-  "name"    : "openpics",
+  "name": "openpics",
   "productName": "Open Pics",
-  "description":"Search and download free stock photos from multiple sources for your creative projects",
-  "version" : "0.1.0",
-  "author":{
-    "name":"Damodar Lohani",
-    "email":"dlohani48@gmail.com",
+  "description": "Search and download free stock photos from multiple sources for your creative projects",
+  "version": "0.1.0",
+  "author": {
+    "name": "Damodar Lohani",
+    "email": "dlohani48@gmail.com",
     "url": "https://lohanitech.com/members/damodar-lohani"
   },
   "homepage": "http://openpics.xyz",
@@ -16,7 +16,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron-watch": "node_modules/.bin/electron-angular-toolkit build -w",
+    "electron-watch": "src/tools/electron-angular-toolkit build -w",
     "electron-run": "electron ."
   },
   "private": true,
@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
     "@types/electron": "^1.4.32",
+    "blazy": "^1.8.2",
     "core-js": "^2.4.1",
     "immutable": "^3.8.1",
     "rxjs": "^5.1.0",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0-beta.32.3",
     "@angular/compiler-cli": "^2.4.0",
+    "@types/blazy": "^1.5.30",
     "@types/electron": "^1.4.32",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.63",

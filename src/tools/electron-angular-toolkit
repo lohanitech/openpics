@@ -1,0 +1,549 @@
+#!/usr/bin/env node
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments)).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var electronBuilder = require("electron-builder");
+var path = require("path");
+var childProcess = require("child_process");
+var console = require("console");
+var npm = require("npm");
+var process = require("process");
+var mz_1 = require("mz");
+var chalk = require("chalk");
+require("core-js");
+var Main = (function () {
+    function Main() {
+    }
+    Main.fileExists = function (path) {
+        return mz_1.fs.exists(path);
+    };
+    Main.readPackageJson = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var string, ex_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('reading Package.json');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, mz_1.fs.readFile('package.json', 'utf-8')];
+                    case 2:
+                        string = _a.sent();
+                        console.log(chalk.green('finished reading package.json'));
+                        return [2 /*return*/, JSON.parse(string)];
+                    case 3:
+                        ex_1 = _a.sent();
+                        console.log(chalk.red('failed reading package.json'));
+                        console.log(chalk.red(ex_1));
+                        process.exit(1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.writePackageJson = function (packageJson) {
+        return __awaiter(this, void 0, void 0, function () {
+            var ex_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('updating package.json');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, mz_1.fs.writeFile('package.json', JSON.stringify(packageJson, null, 2))];
+                    case 2:
+                        _a.sent();
+                        console.log(chalk.green('finished updating package.json'));
+                        return [3 /*break*/, 4];
+                    case 3:
+                        ex_2 = _a.sent();
+                        console.log(chalk.red('failed updating Package.json'));
+                        console.log(chalk.red(ex_2));
+                        process.exit(1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.runNgBuild = function (watch) {
+        console.log('running ng build');
+        return new Promise(function (resolve, reject) {
+            var proc = childProcess.exec("ng build --watch=" + watch + " --output-path=bundle", { maxBuffer: 1024 * 5000 }, function (error, stdout, stderror) {
+                if (error) {
+                    console.log(chalk.red('ng build failed'));
+                    console.log(chalk.red("ng build --watch=" + watch + " --output-path=bundle"));
+                    console.log(chalk.red(error.message));
+                    process.exit(1);
+                }
+                else if (stderror) {
+                    console.log(chalk.green('finished ng build'));
+                    resolve();
+                }
+                else {
+                    console.log(chalk.green('finished ng build'));
+                    resolve();
+                }
+            });
+            proc.stdout.on("data", function (data) {
+                console.log(data);
+            });
+        });
+    };
+    Main.runElectronPacker = function () {
+        console.log("running electron-builder build");
+        var targets = undefined;
+        try {
+            if (process.argv.indexOf('-w') > -1) {
+                targets = electronBuilder.Platform.WINDOWS.createTarget();
+            }
+            else if (process.argv.indexOf('-l') > -1) {
+                targets = electronBuilder.Platform.LINUX.createTarget();
+            }
+            else if (process.argv.indexOf('-m') > -1) {
+                targets = electronBuilder.Platform.MAC.createTarget();
+            }
+            var result = electronBuilder.build({ targets: targets });
+            console.log(chalk.green('finished electron-builder build'));
+            return result;
+        }
+        catch (error) {
+            console.log(chalk.red('electron-builder build failed'));
+            console.log(chalk.red(error));
+            process.exit(1);
+        }
+    };
+    Main.npmInstall = function (packages, dev) {
+        console.log('running npm install');
+        var options = dev ? { 'save-dev': true } : { 'save': true };
+        return new Promise(function (resolve, reject) {
+            npm.load(options, function (error) {
+                npm.commands.install(packages, function (error, data) {
+                    if (error) {
+                        console.log(chalk.red('npm install failed'));
+                        console.log(chalk.red("packages: " + packages.join(', ')));
+                        console.log(error);
+                        process.exit(1);
+                    }
+                    else {
+                        console.log(chalk.green('finished npm install'));
+                        resolve();
+                    }
+                });
+            });
+        });
+    };
+    Main.installRequiredPackages = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('installing required packages');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.npmInstall(['electron', '@types/node', '@types/electron'], true)];
+                    case 2:
+                        _a.sent();
+                        console.log(chalk.green('finished installing required packages'));
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.log(chalk.red('installing required packages failed'));
+                        console.log(chalk.red(error_1));
+                        process.exit(1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.preparePacageJson = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var packageJson, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('preparing package.json');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.readPackageJson()];
+                    case 2:
+                        packageJson = _a.sent();
+                        packageJson.main = 'bundle/electron-main.js';
+                        packageJson.build = {
+                            files: ['bundle/**/*']
+                        };
+                        return [4 /*yield*/, this.writePackageJson(packageJson)];
+                    case 3:
+                        _a.sent();
+                        console.log(chalk.green('finished preparing package.json'));
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.log(chalk.red('failed preparing package.json'));
+                        console.log(chalk.red(error_2));
+                        process.exit(1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.prepareIndexHtml = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var indexHtmlPath, indexHtml, updatedIndexHtml, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('preparing index.html');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        indexHtmlPath = path.join('src', 'index.html');
+                        return [4 /*yield*/, mz_1.fs.readFile(indexHtmlPath, 'utf-8')];
+                    case 2:
+                        indexHtml = _a.sent();
+                        updatedIndexHtml = indexHtml.replace('<base href="/">', '<base href="./">');
+                        return [4 /*yield*/, mz_1.fs.writeFile(indexHtmlPath, updatedIndexHtml)];
+                    case 3:
+                        _a.sent();
+                        console.log(chalk.green('finished preparing index.html'));
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_3 = _a.sent();
+                        console.log(chalk.red('failed preparing index.html'));
+                        console.log(chalk.red(error_3));
+                        process.exit(1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.prepareAngularCliConfig = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var angularCliConfig, _a, _b, _c, error_4;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        console.log('preparing angular-cli.json');
+                        _d.label = 1;
+                    case 1:
+                        _d.trys.push([1, 4, , 5]);
+                        _b = (_a = JSON).parse;
+                        return [4 /*yield*/, mz_1.fs.readFile('.angular-cli.json', 'utf-8')];
+                    case 2:
+                        angularCliConfig = _b.apply(_a, [_d.sent()]);
+                        if (!angularCliConfig.apps[0].assets) {
+                            angularCliConfig.apps[0].assets = [];
+                        }
+                        angularCliConfig.apps[0].assets.push('electron-main.js');
+                        angularCliConfig.apps[0].outDir = "bundle";
+                        return [4 /*yield*/, mz_1.fs.writeFile('.angular-cli.json', JSON.stringify(angularCliConfig, null, 2))];
+                    case 3:
+                        _d.sent();
+                        console.log(chalk.green('finished preparing angular-cli.json'));
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_4 = _d.sent();
+                        console.log(chalk.red('failed preparing angular-cli.json'));
+                        console.log(chalk.red(error_4));
+                        process.exit(1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.createElectronEntryPoint = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var sourcePath, targetPath, template, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('creating entry point');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        sourcePath = path.join(__dirname, '..', 'res', 'electron-main.js.template');
+                        targetPath = path.join('src', 'electron-main.js');
+                        return [4 /*yield*/, mz_1.fs.readFile(sourcePath, 'utf-8')];
+                    case 2:
+                        template = _a.sent();
+                        return [4 /*yield*/, mz_1.fs.writeFile(targetPath, template)];
+                    case 3:
+                        _a.sent();
+                        console.log(chalk.green('finished creating entry point'));
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_5 = _a.sent();
+                        console.log(chalk.red('failed creating entry point'));
+                        console.log(chalk.red(error_5));
+                        process.exit(1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.modifyWebpackConfig = function (packageJson) {
+        return __awaiter(this, void 0, void 0, function () {
+            var originalConfig, nativeDependencies, externalsTemplate, externals, newConfig, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('modifying webpack config');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, mz_1.fs.readFile(this.copyConfigPath, 'utf-8')];
+                    case 2:
+                        originalConfig = _a.sent();
+                        nativeDependencies = ['fs', 'child_process', 'electron', 'path', 'assert', 'cluster', 'crypto', 'dns', 'domain', 'events', 'http', 'https', 'net', 'os', 'process', 'punycode',
+                            'querystring', 'readline', 'repl', 'stream', 'string_decoder', 'tls', 'tty', 'dgram', 'url', 'util', 'v8', 'vm', 'zlib'];
+                        if (packageJson.nativeModules) {
+                            nativeDependencies = nativeDependencies.concat(packageJson.nativeModules);
+                        }
+                        return [4 /*yield*/, mz_1.fs.readFile(path.join(__dirname, '..', 'tools', 'externals.template'), 'utf-8')];
+                    case 3:
+                        externalsTemplate = _a.sent();
+                        externals = externalsTemplate.replace('{ignores}', JSON.stringify(nativeDependencies));
+                        newConfig = originalConfig.replace(/return ?{/g, "return {\n" + externals);
+                        return [4 /*yield*/, mz_1.fs.writeFile(this.configPath, newConfig)];
+                    case 4:
+                        _a.sent();
+                        console.log(chalk.green('finished modifying webpack config'));
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_6 = _a.sent();
+                        console.log(chalk.red('failed modifying webpack config'));
+                        console.log(chalk.red(error_6));
+                        process.exit(1);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.copyWebpackConfig = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var configContent, error_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('copying webpack config');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, mz_1.fs.readFile(this.configPath, 'utf-8')];
+                    case 2:
+                        configContent = _a.sent();
+                        return [4 /*yield*/, mz_1.fs.writeFile(this.copyConfigPath, configContent)];
+                    case 3:
+                        _a.sent();
+                        console.log(chalk.green('finished copying webpack config'));
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_7 = _a.sent();
+                        console.log(chalk.red('failed copying webpack config'));
+                        console.log(chalk.red(error_7));
+                        process.exit(1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.installNativeDependenciesIntoBuild = function (packageJson) {
+        return __awaiter(this, void 0, void 0, function () {
+            var packagesToInstall, _i, _a, packageName, error_8;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log("installing native dependencies");
+                        packagesToInstall = [];
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, mz_1.fs.mkdir(path.join(process.cwd(), 'bundle', 'node_modules'))];
+                    case 2:
+                        _b.sent();
+                        for (_i = 0, _a = packageJson.nativeModules; _i < _a.length; _i++) {
+                            packageName = _a[_i];
+                            packagesToInstall.push(packageName + "@" + packageJson.dependencies[packageName]);
+                        }
+                        process.chdir('bundle');
+                        return [4 /*yield*/, this.npmInstall(packagesToInstall, false)];
+                    case 3:
+                        _b.sent();
+                        process.chdir('..');
+                        console.log(chalk.green('finished installing native dependencies'));
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_8 = _b.sent();
+                        console.log(chalk.red('failed installing native dependencies'));
+                        console.log(chalk.red(error_8));
+                        console.log(chalk.red("packages: " + packagesToInstall.join(', ')));
+                        process.exit(1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.prepare = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.installRequiredPackages()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.createElectronEntryPoint()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.preparePacageJson()];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.prepareIndexHtml()];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.prepareAngularCliConfig()];
+                    case 5:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.build = function (watch) {
+        return __awaiter(this, void 0, void 0, function () {
+            var packageJson;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.readPackageJson()];
+                    case 1:
+                        packageJson = _a.sent();
+                        return [4 /*yield*/, this.fileExists(this.copyConfigPath)];
+                    case 2:
+                        if (!!(_a.sent()))
+                            return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.copyWebpackConfig()];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4: return [4 /*yield*/, this.modifyWebpackConfig(packageJson)];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, this.runNgBuild(watch)];
+                    case 6:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.publish = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var packageJson;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.readPackageJson()];
+                    case 1:
+                        packageJson = _a.sent();
+                        return [4 /*yield*/, this.build(false)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.installNativeDependenciesIntoBuild(packageJson)];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.runElectronPacker()];
+                    case 4:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Main.main = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, watch, error_9;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 9, , 10]);
+                        _a = process.argv[2];
+                        switch (_a) {
+                            case 'prepare': return [3 /*break*/, 1];
+                            case 'build': return [3 /*break*/, 3];
+                            case 'publish': return [3 /*break*/, 5];
+                        }
+                        return [3 /*break*/, 7];
+                    case 1: return [4 /*yield*/, this.prepare()];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 8];
+                    case 3:
+                        watch = process.argv[3] == '-w';
+                        return [4 /*yield*/, this.build(watch)];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 8];
+                    case 5: return [4 /*yield*/, this.publish()];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 8];
+                    case 7: throw new Error('Invalid command');
+                    case 8: return [3 /*break*/, 10];
+                    case 9:
+                        error_9 = _b.sent();
+                        console.log(error_9);
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Main;
+}());
+Main.configPath = path.join(__dirname, '..', '..','node_modules', '@angular','cli', 'models', 'webpack-configs','common.js');
+Main.copyConfigPath = path.join(__dirname, '..', '..', 'node_modules', '@angular','cli', 'models', 'webpack-configs','common.original.js');
+Main.main();

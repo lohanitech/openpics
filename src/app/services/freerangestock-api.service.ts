@@ -27,10 +27,20 @@ export class FreerangestockApiService {
       if(this.searching){
         this.search();
       }else{
+        this.loading=false;
       }
     }
     return
   }
+
+  prevPage(){
+    if(this.loading) return;
+    if(this.page == 1) return;
+    this.loading = true;
+    this.page--;
+    (this.searching)?this.search():this.loading=false;
+  }
+
   setQuery(query){
     this.query = query;
   }

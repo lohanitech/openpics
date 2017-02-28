@@ -31,11 +31,21 @@ export class UnsplashApiService {
     }
     return
   }
+
+  prevPage(){
+    if(this.loading) return;
+    if(this.page == 1) return;
+    this.loading = true;
+    this.page--;
+    (this.searching)?this.search():this.getRecentPics();
+  }
+  
   setQuery(query){
     // this.query = encodeURIComponent(query).replace(/%20/g, "+");
     this.query = query;
   }
   search(){
+    this.perPage = 20;
     if(this.page > this.totalPages){
       return true;
     }
@@ -48,6 +58,7 @@ export class UnsplashApiService {
     this.getPics('search/photos',param);
   }
   getRecentPics(){
+    this.perPage = 5;
     this.loading = true;
     let param={
       per_page:this.perPage,

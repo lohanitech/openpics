@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { LocalStore } from '../../services/local-store';
 import { PicStore } from '../../services/pic-store/pic-store';
@@ -15,8 +14,10 @@ export class SidebarComponent implements OnInit {
   sources:any=[];
   collections:any;
   isActive='';
+  showAddAlbum='';
   downloadPath;
-  constructor(public store:LocalStore, public picStore: PicStore, public electron: ElectronService, public router: Router, public zone: NgZone) {
+  albumName;
+  constructor(public store:LocalStore, public picStore: PicStore, public electron: ElectronService, public zone: NgZone) {
     for (var key in SOURCES) {
       this.sources.push(SOURCES[key]);
     }
@@ -31,11 +32,19 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
   selectCollection(collection){
-    this.picStore.initCollectionPics(this.collections[collection.toLowerCase()]);
-    this.router.navigate(['']);
+    this.picStore.initCollectionPics(this.collections[collection.toLowerCase()], collection);
   }
   toggleSettings(){
     this.isActive = (this.isActive === '')?'is-active':'';
+  }
+  toggleAddAlbum(){
+    this.showAddAlbum = (this.showAddAlbum === '')?'is-active':'';
+  }
+  saveAlbum(){
+    if(!this.albumName)return;
+    this.store.addCollection(this.albumName);
+    this.albumName = null;
+    this.toggleAddAlbum();
   }
   changeDownloadPath(){
     this.electron.changeDownloadPath();

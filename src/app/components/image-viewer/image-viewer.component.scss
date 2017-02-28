@@ -6,20 +6,15 @@
   margin-right: 20px;
   img {
     margin: 0 auto;
-    max-height: 600px;
-    height: 600px;
+    max-height: 500px;
+    height: 500px;
     width: auto;
   }
 }
 
 .statusbar {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  padding-right: 330px;
-  &.full-width{
-    padding-right: 40px;
-  }
+  margin-top: 20px;
+  padding-right: 20px;
 }
 
 .toolbar {
