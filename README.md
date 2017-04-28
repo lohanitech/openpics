@@ -6,7 +6,7 @@ Search and download free stock photos from multiple sources for your creative pr
 You can download the prebuilt binaries for Linux and Windows from [https://openpics.xyz/download](https://openpics.xyz/download) or from github releases.
 
 ## Developers
-See our [contributing guidelines](https://github.com/lohanitech/openpics/blob/master/CONTRIBUTING.md) for making contributions to the project
+See our [contributing guidelines](https://github.com/lohanitech/openpics/blob/master/CONTRIBUTING.md) and also [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/) for making contributions to the project
 
 ## Goals
 - Add more image sources
