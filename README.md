@@ -50,9 +50,7 @@ Openpics is licensed under the GNU GPL License, Version 3.0. See [LICENSE](https
 ## Donate
 [Click here to lend your support to OpenPics](https://openpics.xyz/donate/)
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/bzkjcPHj39DQMQMWgqF5z6KA/lohanitech/openpics'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/bzkjcPHj39DQMQMWgqF5z6KA/lohanitech/openpics.svg' />
-</a>
+
 
 ## Technologies used
 - [Electron](https://electron.atom.io)
