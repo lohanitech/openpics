@@ -1,9 +1,9 @@
 # openpics
+** No longer maintained **
 Search and download free stock photos from multiple sources for your creative projects
-[https://openpics.xyz](https://openpics.xyz)
 
 ## Installation
-You can download the prebuilt binaries for Linux and Windows from [https://openpics.xyz/download](https://openpics.xyz/download) or from github releases.
+You can download the prebuilt binaries for Linux and Windows from [https://github.com/lohanitech/openpics/releases](https://github.com/lohanitech/openpics/releases) or from github releases.
 
 ## Developers
 See our [contributing guidelines](https://github.com/lohanitech/openpics/blob/master/CONTRIBUTING.md) and also [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/) for making contributions to the project
@@ -47,10 +47,6 @@ Openpics is licensed under the GNU GPL License, Version 3.0. See [LICENSE](https
 - Keep a list of favourite images
 - More coming soon..
 
-## Donate
-[Click here to lend your support to OpenPics](https://openpics.xyz/donate/)
-
-
 
 ## Technologies used
 - [Electron](https://electron.atom.io)
@@ -61,5 +57,3 @@ Openpics is licensed under the GNU GPL License, Version 3.0. See [LICENSE](https
 ## Issues or Feature Request
 File github issues for anything that is unexpectedly broken.
 
-## For more information
-[Openpics website](https://openpics.xyz)
